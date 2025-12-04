@@ -1,3 +1,5 @@
+'use client'  
+
 import RecyclingGiftComponent from "@/components/gift";
 
 export default function GiftsPage() {
