@@ -11,8 +11,6 @@ interface NotificationsPanelProps {
 
 
 
-
-
 const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOpen}) => {
 
   const searchParams = useSearchParams();

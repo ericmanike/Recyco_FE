@@ -1,9 +1,9 @@
 'use client';
 import Card from "@/components/Card";
 import { Filter } from "lucide-react";
-import React, { use, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useRouter,useSearchParams } from "next/navigation";
-import { param } from "framer-motion/client";
+
 
 
 export default function BuyPage() {
@@ -133,7 +133,7 @@ export default function BuyPage() {
 
     
 
-    </div>
+ </div>
 
    
   

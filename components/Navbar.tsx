@@ -2,7 +2,7 @@
 import { Menu, ShoppingBag, ShoppingCart, Gift, Truck, Bell,PhoneCall,Megaphone } from 'lucide-react';
 import logo from '../public/Wastocash0.png';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import NotificationsPanel from './Notifications';
 import MoreDropdown from './Dropdown';
 import Sidebar from './Sidebar';
@@ -15,7 +15,7 @@ const Navbar = () => {
 const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
-const path = usePathname()
+
 
 
 
