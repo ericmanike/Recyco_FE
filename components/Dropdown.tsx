@@ -1,0 +1,33 @@
+'use client'
+import * as React from "react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { ChevronDown } from "lucide-react"
+export default function DropdownMenuRadioGroupDemo() {
+  const [position, setPosition] = React.useState("right")
+  return (
+    <DropdownMenu >
+      <DropdownMenuTrigger asChild>
+        <ChevronDown size={28} className="cursor-pointer hover:text-[#2fff00b9]" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-40 flex  justify-around h-fit py-3 bg-gray-50 text-black cursor-pointer">
+       
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+         <Link href="/news"></Link> <DropdownMenuRadioItem value="top" className="cursor-pointer w-full hover:bg-green-500"> News</DropdownMenuRadioItem>
+        <Link href="/support">  <DropdownMenuRadioItem value="right" className="cursor-pointer w-full hover:bg-green-500">Support our work</DropdownMenuRadioItem></Link>
+         <Link href="/orderPickup">  <DropdownMenuRadioItem value="left" className="cursor-pointer w-full hover:bg-green-500">Order Pickup</DropdownMenuRadioItem></Link>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}

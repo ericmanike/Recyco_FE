@@ -1,0 +1,123 @@
+'use client'
+import { useState } from 'react'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useToast } from './toastProvider'
+import { ArrowLeft, Eye, EyeOff, Router } from 'lucide-react'
+ import { useSearchParams,useRouter} from 'next/navigation'
+
+
+
+const newPasswordValidationSchema = Yup.object().shape({
+  newPassword: Yup.string().min(6, 'Too short').required('New password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('newPassword')], 'Passwords must match')
+    .required('Confirm password is required'),
+})
+
+export default function ResetPasswordForm() {
+
+
+ const  Router = useRouter()
+
+  const { showToast } = useToast()
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const searchParams = useSearchParams()
+  const email = searchParams.get('email') || ''
+  const token = searchParams.get('token') || ''
+
+  
+
+
+  
+
+  const resetPassword = async (values:{ newPassword: string }) => {
+  
+     
+    try {
+      const res = await fetch('http://localhost:8000/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, token, new_password: values.newPassword }),
+      })
+      if (!res.ok) {
+         showToast('Password reset failed', 'error')
+         throw new Error('Password reset failed')
+      }
+      
+      const data = await res.json()
+      console.log('Password reset successful:', data)
+      alert('Password reset successful!')
+    } catch (err) {
+        showToast('Password reset failed', 'error')
+      console.error(err)
+    }
+  }
+
+  return (
+    <div className="h-screen flex justify-center items-center bg-gray-100 p-10  md:w-1/2">
+   
+      
+       <button onClick={() => Router.replace('/Login')} className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <ArrowLeft/>
+         <span>Back</span>
+       </button>
+      { (
+        <Formik
+          initialValues={{ newPassword: '', confirmPassword: '' }}
+          validationSchema={newPasswordValidationSchema}
+          onSubmit={resetPassword}
+        >
+          {({ isSubmitting, isValid, dirty }) => (
+            <Form className="bg-white p-6 rounded shadow-md w-full  md:w-[80%]  h-[fit]    flex flex-col gap-4">
+              <h2 className="text-xl font-bold text-center">Enter New Password</h2>
+              <label>New Password</label>
+              <div className="relative">
+                <Field 
+                  type={showNewPassword ? "text" : "password"} 
+                  name="newPassword" 
+                  className="border p-2 rounded w-full pr-10" 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <ErrorMessage name="newPassword" component="div" className="text-red-500 text-sm" />
+
+              <label>Confirm Password</label>
+              <div className="relative">
+                <Field 
+                  type={showConfirmPassword ? "text" : "password"} 
+                  name="confirmPassword" 
+                  className="border p-2 rounded w-full pr-10" 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
+
+              <button
+                type="submit"
+                disabled={!dirty || !isValid || isSubmitting}
+              className={` ${ !dirty || !isValid ? 'bg-gray-600 cursor-not-allowed ' : 'bg-green-400 cursor-pointer'} text-white p-2 rounded transition-colors`}
+              >
+                Reset Password
+              </button>
+            </Form>
+          )}
+        </Formik>
+      )}
+    </div>
+  )
+}
