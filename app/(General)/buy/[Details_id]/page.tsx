@@ -1,7 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, MessageSquare, Share2, Calendar, MapPin, Package, Clock, CheckCircle,  Phone} from 'lucide-react';
-import { useRouter } from 'next/router';
 
 export default function WasteListingDetailsPage() {
   const [selectedImage, setSelectedImage] = useState(0);

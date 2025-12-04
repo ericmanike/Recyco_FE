@@ -8,7 +8,7 @@ import MoreDropdown from './Dropdown';
 import Sidebar from './Sidebar';
 import ActiveLink from './ActiveLink';
 import DropdownProfile from './Profiledropdown';
-import { usePathname } from 'next/navigation';
+
 
 
 const Navbar = () => {

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 
-import { toast } from 'sonner';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -90,7 +89,7 @@ export default function ContactPage() {
 
   const handleSubmit = () => {
     if (!validateForm()) {
-        toast.error('Please fix the errors in the form before submitting.');
+      
 
       return;
     }
@@ -100,7 +99,7 @@ export default function ContactPage() {
     setTimeout(() => {
       console.log('Form submitted:', formData);
       setIsSubmitted(true);
-      toast.success('Your message has been sent successfully!');
+      
       setIsSubmitting(false);
       
       setFormData({
