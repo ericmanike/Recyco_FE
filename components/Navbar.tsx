@@ -8,7 +8,11 @@ import MoreDropdown from './Dropdown';
 import Sidebar from './Sidebar';
 import ActiveLink from './ActiveLink';
 import DropdownProfile from './Profiledropdown';
-
+import { AuthContext } from './Auth_Context';
+import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import {motion, scale} from 'framer-motion';
+import Marquee from './marquee';
 
 
 const Navbar = () => {
@@ -17,6 +21,8 @@ const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
 
 
+const  {isLogin} = useContext(AuthContext)!;
+const router = useRouter();
 
 
 
@@ -26,8 +32,9 @@ const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
 
   return (
     <>
-
+  
     <nav className="w-full bg-white shadow-lg overflow-hidden fixed  top-0 left-0 z-50 ">
+      <Marquee />
       <div className="flex items-center justify-between px-4 py-2 ">
         {/* Left Section - Menu, Logo and Navigation */}
         <div className="flex gap-2  md:gap-6 ">
@@ -43,7 +50,7 @@ const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
               <img src={logo.src} alt="WastoCash Logo" className="w-9 h-9 md:w-12 md:h-12 cursor-pointer" />
             </Link>
             </div>
-            <span className="text-green-700 font-semibold font-[merianda] text-[20px] md:text-4xl">
+            <span className="hidden md:block text-green-700 font-semibold font-[bitcount] text-[20px] md:text-4xl">
               RECYCO
             </span>
           </div>
@@ -118,22 +125,35 @@ const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
           <div className=" md:h-12 w-0.5 bg-gray-300"></div>
 
           {/* User Avatar */}
-          <DropdownProfile />
+         {  !isLogin ?( < motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{scale: 0.9}}
+          transition={{ duration: 0.1 }}
 
-          {/* Notification Bell */}
+          
+          className="py-2 px-3 cursor-pointer hover:opacity-80 
+          transition rounded-lg bg-green-500 text-white text-[14px] md:text-[18px]"
+          onClick={()=> router.push('/Login')}
+          >
+            Get started
+          </motion.button>
+         ) : (
+          <>
+           <DropdownProfile />
+
+   
+         
           <button className="relative hover:opacity-80 transition p-2
            hover:bg-gray-100 rounded-lg" onClick={()=>setIsNotificationsOpen(true)}>
             <Bell size={28} className="text-black hover:text-green-500  cursor-pointer " strokeWidth={2} />
-            {/* Optional notification badge */}
+            {/*notification badge */}
             { <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>}
           </button>
+          </>
+       )}
         </div>
       </div>
 
-      {/* Optional: User ID can be added here if needed */}
-      {/* <div className="absolute top-3 right-4 text-black text-sm font-medium">
-        userId: 124345
-      </div> */}
     </nav>
     <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
     <NotificationsPanel isOpen={isNotificationsOpen} setIsOpen={setIsNotificationsOpen} />

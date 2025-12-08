@@ -1,4 +1,4 @@
-import 'use client';
+'use client';
 import { createContext,useState } from "react";
 
 
@@ -10,7 +10,7 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
-export function AuthProvider({ children }:{ children: React.ReactNode; value: AuthContextType }) {
+export function AuthProvider({ children }:{ children: React.ReactNode; }) {
 const [isLogin, setIsLogin] = useState(false);
 
 

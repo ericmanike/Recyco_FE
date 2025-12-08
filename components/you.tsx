@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Camera, Calendar, Mail, MapPin, Award, Save, X, Edit2, User } from 'lucide-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -39,6 +40,7 @@ export default function RecycoProfile() {
   const [editMode, setEditMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -118,6 +120,14 @@ export default function RecycoProfile() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+      <button
+        onClick={() => router.back()}
+        className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center cursor-pointer"
+
+      >
+        Back
+      </button>
+
       <div className="max-w-5xl mx-auto">
         <form onSubmit={formik.handleSubmit}>
           {/* Main Profile Card */}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
+import {motion} from 'framer-motion'; 
 
 
 interface NotificationsPanelProps {
@@ -61,20 +62,27 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOp
     <h2 className="p-2 font-bold text-black">Notifications</h2>
 
 
-    <button className="p-3 transition cursor-pointer rounded-[59%] bg-gray-300 hover:bg-gray-400  m-3 "  onClick={()=>setIsOpen(false)}>
+    <motion.button
+    whileHover={{scale:1.1}}
+    whileTap={{scale:0.95}}
+     className="p-3 transition cursor-pointer rounded-[59%] bg-gray-300 hover:bg-gray-400  m-3 "  onClick={()=>setIsOpen(false)}>
       <X size={24} className="text-red-500 hover:text-red-600 " strokeWidth={2} />
-    </button>
+    </motion.button>
     </div>
 
     <div className='w-[90%] flex justify-around items-center font-bold gap-4'>
 
     {categories.map((cat) => (
-    <button className={`py-2 px-3 transition
+    <motion.button
+    whileHover={{scale:1.1}}
+    whileTap={{scale:0.95}}
+    
+    className={`py-2 px-3 transition
      cursor-pointer rounded-[10px]
       ${category === cat ? 'bg-green-400 text-white' : ''}`} 
       onClick={()=>setFilter(cat)}  key={cat}>
    {cat}
-    </button>
+    </motion.button>
     ))}
 
     

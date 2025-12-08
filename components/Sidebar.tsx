@@ -4,7 +4,7 @@ import {  X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Plus,MapPin,HelpCircle,ShoppingBagIcon,Trash, Motorbike} from 'lucide-react';
-
+import {motion} from 'framer-motion';
 
 interface NotificationsPanelProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOp
   const handleClickOutside = (event: MouseEvent) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
       setIsOpen(false);
-      console.log("Clicked outside");
+     
     }
   };
 
@@ -53,9 +53,13 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOp
     scrollbar-hide  z-50 top-0 transition-all duration-300  ease-in-out shadow-lg`} ref={sidebarRef}>
 
 
-    <button className="p-2 transition cursor-pointer rounded-3xl bg-gray-600  hover:bg-gray-700  absolute top-1 right-2"  onClick={()=>setIsOpen(false)}>
+    <motion.button 
+    whileHover={{scale:1.1}}
+    whileTap={{scale:0.95}}
+    
+    className="p-2 transition cursor-pointer rounded-3xl bg-gray-600  hover:bg-gray-700  absolute top-1 right-2"  onClick={()=>setIsOpen(false)}>
       <X size={24} className="text-red-500 " strokeWidth={2} /> 
-    </button>
+    </motion.button>
 
   
    <div className='w-full bg-gray-800 p-4 py-3 gap-4 flex justify-start'>  
@@ -83,7 +87,13 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOp
 
    <button className=' w-[90%] m-auto p-4 py-3 bg-green-500 
     text-white rounded-xl absolute  bottom-3 
-    right-2 left-2 cursor-pointer' onClick={() => router.push('/contact')}>Contact Us</button>
+    right-2 left-2 cursor-pointer' onClick={() =>{ router.push('/contact')
+
+      setIsOpen(false)
+    }
+
+      
+    }>Contact Us</button>
     </div>
   );
 };

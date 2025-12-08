@@ -1,11 +1,9 @@
 "use client";
 import React, { useState, useEffect, use } from "react";
 import { GoogleMap, useJsApiLoader,MarkerF, OverlayView} from "@react-google-maps/api";
-import DistanceFilter from "./MapFilter";
 import {getDistance} from "@/lib/distanceFunc";
 import { Phone,ChevronDown,ChevronUp, Star } from "lucide-react";
 import { greenMapStyle } from "@/lib/mapstyles";
-
 
 
 

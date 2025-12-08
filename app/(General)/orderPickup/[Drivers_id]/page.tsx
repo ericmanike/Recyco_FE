@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { MapPin, CheckCircle, AlertCircle, MessageSquare, Phone, Star, Package, Clock, TrendingUp, Award, Calendar, ChevronLeft, Navigation } from 'lucide-react';
+import { MapPin, MessageSquare, Phone, Star, Package, Clock, TrendingUp, Award, Calendar, ChevronLeft, Navigation } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function DriverDetailsPage() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -9,6 +10,8 @@ export default function DriverDetailsPage() {
     rating: 0,
     comment: ''
   });
+
+  const router = useRouter();
   
   const driver = {
     name: "Marcus Johnson",
@@ -54,10 +57,12 @@ export default function DriverDetailsPage() {
       {/* Header */}
       <div className="bg-green-600 text-white p-4 sticky top-0 z-10 shadow-lg">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
-          <button className="p-2 hover:bg-green-700 rounded-lg transition-colors">
+          <button className="p-2 hover:bg-green-700 rounded-lg transition-colors cursor-pointer"
+            onClick={() => router.back()}
+          > 
             <ChevronLeft size={24} />
           </button>
-          <h1 className="text-xl font-semibold">Driver Details</h1>
+          <h1 className="text-xl font-semibold">Pickup drivers</h1>
         </div>
       </div>
 

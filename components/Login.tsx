@@ -1,11 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Eye, EyeOff } from 'lucide-react'
 import { useToast } from './toastProvider'
 import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
+import { AuthContext } from './Auth_Context'
+import { motion} from 'framer-motion'
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -24,11 +27,17 @@ const signupValidationSchema = Yup.object().shape({
 
 export default function AuthForm() {
   const { showToast } = useToast()
+  const { isLogin, setIsLogin } = useContext(AuthContext)!
+  const [loggingIn, setLoggingIn] = useState(false)
+
+
+  
+
   // Router for navigation
 const Router = useRouter()
 
 
-  const [isLogin, setIsLogin] = useState(true)
+  
   const [signUpData, setSignUpData] = useState({})
   const [loginData, setLoginData] = useState({
     email: '',
@@ -103,13 +112,26 @@ const Router = useRouter()
     }
   }
 
+useEffect(
+  ()=>{
+    console.log(isLogin)
+  }, [isLogin]
+)
+
+
+
   return (
     <div className="min-h-screen w-full flex justify-center
      items-center bg-linear-to-br from-green-400 to-blue-500 p-10">
-      <button onClick={()=> Router.replace('/')} className='absolute top-6 left-4 bg-gray-400 p-2 rounded cursor-pointer' >
+      <motion.button 
+       whileHover={{scale:0.95}}
+      whileTap={{scale:1}}
+      
+      onClick={()=> Router.replace('/')} className='text-[10px]  md:text-[16px] absolute top-2 md:top-6 px-4 left-1 bg-gray-300 p-2 rounded cursor-pointer' >
       Back
-      </button>
-      {isLogin ? (
+      </motion.button>
+
+      {!loggingIn ? (
         <Formik
           key="login"
           initialValues={{ email: '', password: '' }}
@@ -121,7 +143,7 @@ const Router = useRouter()
           }}
         >
           {({ dirty, isValid, isSubmitting }) => (
-            <Form className="md:w-1/2 w-full h-screen flex flex-col gap-4 bg-white shadow-lg p-6 rounded-3xl py-30">
+            <Form className="md:w-1/2 w-full h-fit flex flex-col gap-4 bg-white shadow-lg p-6 rounded-[10px] md:py-30">
               <h2 className="text-center font-bold text-2xl text-gray-800">Welcome Back</h2>
 
               <div className="w-full">
@@ -159,10 +181,13 @@ const Router = useRouter()
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 
-              <button type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
+              <motion.button 
+              whileHover={{scale:0.95}}
+              whileTap={{scale:1}}
+             type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
                 'bg-green-400 cursor-pointer '}  text-white p-2 rounded transition-colors`}>
                 Login
-              </button>
+              </motion.button>
 
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">
@@ -170,26 +195,21 @@ const Router = useRouter()
                   <span
                     className="text-green-500 cursor-pointer hover:text-green-600"
                     onClick={() => {
-                      setIsLogin(false)
+                      setLoggingIn(true)
                     }}
                   >
-                    Sign Up
+                  Sign Up
                   </span>
                 </span>
-                <button
-                  type="button"
-                  onClick={handleGoogleAuth}
-                  className="flex items-center gap-2 border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition-colors"
-                >
-                  <svg width="18" height="18" viewBox="0 0 18 18">
-                    <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
-                    <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
-                    <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
-                    <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
-                  </svg>
-                  <span className="text-sm text-gray-700">Google</span>
-                </button>
+                
+                
               </div>
+
+
+
+
+
+
             </Form>
           )}
         </Formik>
@@ -206,7 +226,7 @@ const Router = useRouter()
           }}
         >
           {({ isSubmitting, dirty,isValid }) => (
-            <Form className="md:w-1/2 w-full flex flex-col gap-4 bg-white shadow-lg p-6 rounded-3xl px-10 py-10">
+            <Form className="w-full  md:w-1/2  h-fit  flex flex-col gap-4 bg-white shadow-lg  rounded-[10px] px-10 py-10">
               <h2 className="text-center font-bold text-2xl text-gray-800">Create an Account</h2>
 
               <div className="w-full">
@@ -271,13 +291,15 @@ const Router = useRouter()
                     placeholder="Confirm Password"
                     className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 pr-10"
                   />
-                  <button
+                   <motion.button 
+       whileHover={{scale:0.95}}
+      whileTap={{scale:1}}
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 mt-1"
                   >
                     {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
+                  </motion.button>
                 </div>
                 <ErrorMessage name="confirmpassword" component="div" className="text-red-500 text-sm mt-1" />
               </div>
@@ -296,11 +318,12 @@ const Router = useRouter()
                 <ErrorMessage name="role" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 
-              <button type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600 ' :
-               'bg-green-400 cursor-not-allowed'} text-white p-2 rounded transition-colors`}
-              >
+               <motion.button 
+       whileHover={{scale:0.95}}
+      whileTap={{scale:1}} type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
+                'bg-green-400 cursor-pointer '}  text-white p-2 rounded transition-colors`}>
                 Sign Up
-              </button>
+              </ motion.button>
 
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">
@@ -314,20 +337,27 @@ const Router = useRouter()
                     Login
                   </span>
                 </span>
-                <button
+
+              </div>
+
+
+              
+                  <motion.button 
+                whileHover={{scale:0.95}}
+                whileTap={{scale:1}}
                   type="button"
                   onClick={handleGoogleAuth}
-                  className="cursor-pointer flex items-center gap-2 border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition-colors"
+                  className="flex justify-center cursor-pointer items-center gap-2 border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition-colors"
                 >
-                  <svg width="30" height="18" viewBox="0 0 18 18">
+                  <svg width="50" height="18" viewBox="0 0 18 18">
                     <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
                     <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
                     <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
                     <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
                   </svg>
-                  <span className="text-sm text-gray-700">Google</span>
-                </button>
-              </div>
+                  <span className="text-sm text-gray-700"> Continue with Google</span>
+                </motion.button>
+
             </Form>
           )}
         </Formik>

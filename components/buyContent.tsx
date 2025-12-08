@@ -128,17 +128,28 @@ export default function BuyPage() {
   <Card  discription='Plastic waste 1kg 200bags worth of 30 cedis 843985939728q7o9' image="/Wastocash.png" profile={{name:'Eric recycling',logo:'/Wastocash1.png'}} />
   <Card  discription='Plastic waste 1kg 200bags worth of 30 cedis 843985939728q7o9' image="/Wastocash.png" profile={{name:'Eric recycling',logo:'/Wastocash1.png'}} />
   <Card  discription='Plastic waste 1kg 200bags worth of 30 cedis 843985939728q7o9' image="/Wastocash.png" profile={{name:'Eric recycling',logo:'/Wastocash1.png'}} />
-  <Card  discription='Plastic waste 1kg 200bags worth of 30 cedis 843985939728q7o9' image="/Wastocash.png" profile={{name:'Eric recycling',logo:'/Wastocash1.png'}} />
-  <Card  discription='Plastic waste 1kg 200bags worth of 30 cedis 843985939728q7o9' image="/Wastocash.png" profile={{name:'Eric recycling',logo:'/Wastocash1.png'}} />
 
-    
+
+
 
  </div>
 
-   
+   <div>
+    { /*space for pagination*/}
+   </div>
   
 
-    
+     <div className="my-5 flex justify-center items-center ">
+      <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors cursor-pointer">
+       previous
+      </button>
+      <span className="mx-4 text-gray-700 font-bold">Page 1 of 5</span>
+
+      <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors ml-5 cursor-pointer">
+       Next
+      </button>
+     
+     </div>
     
  
     
