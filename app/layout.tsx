@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 import { AuthProvider } from "@/components/Auth_Context";
 import { ToastProvider } from "@/components/toastProvider";
 
@@ -14,8 +12,8 @@ const geistSans = Geist({
 
 
 export const metadata: Metadata = {
-  title: "WastoCash",
-  description: "Turn waste into cash with WastoCash - your trusted platform for recycling and selling used items.",
+  title: "RECYCO",
+  description: "Turn waste into cash with RECYCO - your trusted platform for recycling and selling used items.",
 };
 
 export default function RootLayout({

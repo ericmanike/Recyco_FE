@@ -44,7 +44,7 @@ export default function BuyPage() {
 
 
   return (
-    <div className="flex min-h-screen font-sans  w-full mt-20   bg-blue-100 ">
+    <div className="flex min-h-screen font-sans  w-full mt-30   bg-blue-100 ">
       
     <div className="grid  grid-cols-1 md:grid-cols-[0.4fr_1fr] py-10 relative ">
     <div className=" ">

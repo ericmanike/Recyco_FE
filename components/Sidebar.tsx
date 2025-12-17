@@ -66,7 +66,7 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, setIsOp
 
   
  <img src='/Wastocash.png' alt='Sidebar-banner' className='w-7 h-7'/>
- <span className='text-white'>WastoCash |   Shortcuts </span>
+ <span className='text-white'>Recyco |   Shortcuts </span>
 
 
    </div>

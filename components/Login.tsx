@@ -27,9 +27,12 @@ const signupValidationSchema = Yup.object().shape({
 
 export default function AuthForm() {
   const { showToast } = useToast()
-  const { isLogin, setIsLogin } = useContext(AuthContext)!
+  const { user, setUser } = useContext(AuthContext)!
   const [loggingIn, setLoggingIn] = useState(false)
 
+
+  //ui
+  const [isLoginMode, setIsLoginMode] = useState(false)
 
   
 
@@ -50,13 +53,15 @@ const Router = useRouter()
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleGoogleAuth = () => {
-    console.log(isLogin ? 'Sign in with Google' : 'Sign up with Google')
+    
   }
    
   //signUp function
-  const signUp = async() => {
+  const signUp = async(signUpData:any) => {
+      setIsLoginMode(true)
+    if(!signUpData) return;
     try {   
-      const res  = await fetch('http://localhost:8000/signUp', {
+      const res  = await fetch('https://recyco-backend.onrender.com/auth/signUp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,13 +82,18 @@ const Router = useRouter()
     } catch (error) {
       showToast('Signup failed', 'error')
       console.log('Signup error:', error)
+    } finally{
+      setIsLoginMode(false)
+      setLoggingIn(false)
     }
+    console.log(isLoginMode)
   }
 
   //Login Function
-  const login = async() => {
+  const login = async(loginData: { email: string; password: string }) => {
+    setIsLoginMode(true)
     try{
-      const res  = await fetch('http://localhost:8000/Login', {
+      const res  = await fetch('https://recyco-backend.onrender.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -91,7 +101,9 @@ const Router = useRouter()
         body:new URLSearchParams({
           'username': loginData.email,
           'password': loginData.password 
-        })
+        }),
+          credentials: "include"
+   
       })
 
       if(!res.ok){
@@ -103,20 +115,19 @@ const Router = useRouter()
         throw new Error('Login failed')
       }
       const data = await res.json()
-      setIsLogin(true)
+      setUser(data)
       showToast('Welcome back', 'success')
       console.log('Login successful:', data)
     }catch(error){
-      showToast('Login failed', 'error')
+    
       console.log('Login error:', error)
+    }finally{
+      setIsLoginMode(false)
+      Router.push('/buy')
     }
   }
+   
 
-useEffect(
-  ()=>{
-    console.log(isLogin)
-  }, [isLogin]
-)
 
 
 
@@ -138,7 +149,7 @@ useEffect(
           validationSchema={loginValidationSchema}
           onSubmit={(values, { resetForm }) => {console.log('Login', values)
             setLoginData(values)
-            login()
+            login(values)
             resetForm()
           }}
         >
@@ -168,12 +179,15 @@ useEffect(
                     type={showLoginPassword ? "text" : "password"}
                     name="password"
                     placeholder="Password"
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 pr-10"
+                    className="w-full border  border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 mt-1"
+                    className="absolute right-2 top-1/2 
+                    -translate-y-1/2 text-gray-500
+                     cursor-pointer
+                     hover:text-gray-700 mt-1"
                   >
                     {showLoginPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -186,7 +200,7 @@ useEffect(
               whileTap={{scale:1}}
              type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
                 'bg-green-400 cursor-pointer '}  text-white p-2 rounded transition-colors`}>
-                Login
+              {isLoginMode ? 'Logging in...': 'Login'}
               </motion.button>
 
               <div className="flex justify-between items-center">
@@ -221,8 +235,9 @@ useEffect(
           onSubmit={(values, { resetForm }) => {console.log('Signup', values)
             const  {confirmpassword, ...data }= values;
             setSignUpData(data)
-            signUp()
+            signUp(data)
             resetForm()
+
           }}
         >
           {({ isSubmitting, dirty,isValid }) => (
@@ -274,7 +289,7 @@ useEffect(
                   <button
                     type="button"
                     onClick={() => setShowSignupPassword(!showSignupPassword)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 mt-1"
+                    className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 mt-1"
                   >
                     {showSignupPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -322,16 +337,16 @@ useEffect(
        whileHover={{scale:0.95}}
       whileTap={{scale:1}} type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
                 'bg-green-400 cursor-pointer '}  text-white p-2 rounded transition-colors`}>
-                Sign Up
+               {isLoginMode ? 'Creating your account...' : 'Sign Up'}
               </ motion.button>
 
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">
                   Already have an account?{' '}
                   <span
-                    className="text-green-500 cursor-pointer hover:text-green-600"
+                    className="text-green-500 font-bold cursor-pointer hover:text-green-600"
                     onClick={() => {
-                      setIsLogin(true)
+                      setLoggingIn(false)
                     }}
                   >
                     Login
@@ -355,7 +370,7 @@ useEffect(
                     <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
                     <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
                   </svg>
-                  <span className="text-sm text-gray-700"> Continue with Google</span>
+                  <span className="text-sm text-gray-700"> {isLoginMode ? 'Logging in with Google...' : 'Continue with Google'}</span>
                 </motion.button>
 
             </Form>

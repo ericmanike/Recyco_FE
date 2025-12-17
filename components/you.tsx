@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Camera, Calendar, Mail, MapPin, Award, Save, X, Edit2, User } from 'lucide-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useAuth } from './Auth_Context';
 
 const ProfileSchema = Yup.object().shape({
   name: Yup.string()
@@ -42,6 +43,7 @@ export default function RecycoProfile() {
   const coverInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  const {user, setUser} = useAuth();
   const formik = useFormik({
     initialValues: {
       name: profile.name,
@@ -255,8 +257,8 @@ export default function RecycoProfile() {
                   </div>
                 ) : (
                   <>
-                    <h1 className="text-2xl font-semibold text-gray-900">{currentData.name}</h1>
-                    <p className="text-gray-600 mt-1">{currentData.role}</p>
+                    <h1 className="text-2xl font-semibold text-gray-900">{user?.fullName}</h1>
+                    <p className="text-gray-600 mt-1">{user?.role}</p>
                   </>
                 )}
               </div>
@@ -282,7 +284,7 @@ export default function RecycoProfile() {
                       )}
                     </div>
                   ) : (
-                    <span>{currentData.email}</span>
+                    <span>{user?.email}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -304,7 +306,7 @@ export default function RecycoProfile() {
                       )}
                     </div>
                   ) : (
-                    <span>{currentData.location}</span>
+                    <span>{user?.location || 'Ghana'}</span>
                   )}
                 </div>
               </div>
@@ -357,7 +359,7 @@ export default function RecycoProfile() {
               </div>
             ) : (
               <p className="text-gray-700 leading-relaxed">
-                {currentData.about}
+                {user?.about || 'No about information provided.'}
               </p>
             )}
           </div>

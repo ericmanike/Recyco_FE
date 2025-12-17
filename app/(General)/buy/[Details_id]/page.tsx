@@ -40,9 +40,9 @@ export default function WasteListingDetailsPage() {
 
   
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 mt-28">
+    <div className="min-h-screen bg-gray-50 pb-20 ">
       {/* Header */}
-      <div className="bg-green-600 text-white p-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-green-600 text-white p-4 sticky top-0 z-10 shadow-lg ">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button className="p-2 hover:bg-green-700 rounded-lg transition-colors" 

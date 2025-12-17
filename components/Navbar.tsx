@@ -21,7 +21,7 @@ const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
 
 
-const  {isLogin} = useContext(AuthContext)!;
+const  {user,setUser,loading} = useContext(AuthContext)!;
 const router = useRouter();
 
 
@@ -35,7 +35,7 @@ const router = useRouter();
   
     <nav className="w-full bg-white shadow-lg overflow-hidden fixed  top-0 left-0 z-50 ">
       <Marquee />
-      <div className="flex items-center justify-between px-4 py-2 ">
+      <div className="flex items-center justify-between px-4 py-2 md:py-0 ">
         {/* Left Section - Menu, Logo and Navigation */}
         <div className="flex gap-2  md:gap-6 ">
           {/* Menu Button */}
@@ -62,7 +62,7 @@ const router = useRouter();
             {/* Buy */}
             <ActiveLink href="/buy">
               <button className="flex flex-col items-center gap-1 hover:opacity-80 transition">
-                <ShoppingBag size={28} className=" h-5 md:h-8  hover:text-green-500 cursor-pointer" strokeWidth={2} />
+                <ShoppingBag size={25} className=" h-4 md:h-6  hover:text-green-500 cursor-pointer" strokeWidth={2} />
                 <span className="  text-sm font-medium">Buy</span>
               </button>
             </ActiveLink>
@@ -70,7 +70,7 @@ const router = useRouter();
             {/* Sell */}
             <ActiveLink href="/sell">
               <button className="flex flex-col items-center gap-1 hover:opacity-80 transition">
-                <ShoppingCart size={28} className=" h-5 md:h-8  hover:text-green-500 cursor-pointer " strokeWidth={2} />
+                <ShoppingCart size={25} className=" h-4 md:h-6  hover:text-green-500 cursor-pointer " strokeWidth={2} />
                 <span className="text-sm font-medium">Sell</span>
               </button>
             </ActiveLink>
@@ -80,7 +80,7 @@ const router = useRouter();
             {/* Sell */}
             <ActiveLink href="/orderPickup">
               <button className="flex flex-col items-center gap-1 hover:opacity-80 transition">
-                <Truck size={28} className=" h-5 md:h-8  hover:text-green-500 cursor-pointer " strokeWidth={2} />
+                <Truck size={25} className=" h-4 md:h-6  hover:text-green-500 cursor-pointer " strokeWidth={2} />
                 <span className="text-sm font-medium">Order pickup</span>
               </button>
             </ActiveLink>
@@ -88,7 +88,7 @@ const router = useRouter();
             {/* Gifts */}
             <ActiveLink href="/gifts">
             <button className="flex flex-col items-center gap-1 hover:opacity-80 transition relative">
-              <Gift size={28} className="h-5 md:h-8  hover:text-green-500 cursor-pointer" strokeWidth={2} />
+              <Gift size={25} className="h-4 md:h-6  hover:text-green-500 cursor-pointer" strokeWidth={2} />
               <span className=" text-sm font-medium">Gifts</span>
               <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#f39e0c]
                text-white text-xs font-bold
@@ -125,7 +125,7 @@ const router = useRouter();
           <div className=" md:h-12 w-0.5 bg-gray-300"></div>
 
           {/* User Avatar */}
-         {  !isLogin ?( < motion.button 
+         {  !user  ?( < motion.button 
           whileHover={{ scale: 1.05 }}
           whileTap={{scale: 0.9}}
           transition={{ duration: 0.1 }}

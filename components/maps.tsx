@@ -47,10 +47,8 @@ setLocation({
 
     alert("Geolocation is not supported by this browser! cannot get location.");
   }
-  return () => {
-    setLocation(null);
-  };
-}, []);
+
+}, [location]);
 
 useEffect(() => {
 

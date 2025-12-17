@@ -1,11 +1,13 @@
  'use client'
- 
+
  import React from 'react'
  import { Formik, Form, Field, ErrorMessage } from 'formik'
  import * as Yup from 'yup'
  import { useRouter } from 'next/navigation'
  import { useToast } from '@/components/toastProvider'
 import { ArrowLeft } from 'lucide-react'
+import { useState } from 'react'
+
 
  
  export default function ForgotPasswordForm() {
@@ -13,6 +15,8 @@ import { ArrowLeft } from 'lucide-react'
    const { showToast } = useToast()
    
     const Router = useRouter()
+
+    const [isSending, setIsSending] = useState(false);
   
    const resetPasswordValidationSchema = Yup.object().shape({
      email: Yup.string().email('Invalid email').required('Email is required'),
@@ -24,23 +28,30 @@ import { ArrowLeft } from 'lucide-react'
 
      const resetPassword = async (values: { email: string }) => {
         
-
+        setIsSending(true);
          try {   
-         const res = await fetch('http://localhost:8000/auth/request-reset', {
+         const res = await fetch('https://recyco-backend.onrender.com/auth/request-reset', {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify({ email: values.email }),
+             credentials: 'include',
          })
          if (!res.ok) {
-            showToast('Failed to request reset', 'error')
+          console.log(' this is the email'+ values.email)
             throw new Error('Failed to request reset')
+           
          }
          const data = await res.json()
+        
          console.log('Reset email sent:', data)
-         } catch (err) {
-         showToast('Failed to request reset', 'error')
+         showToast('Check your email to reset your password', 'success')
+         } catch (err: any) {
+         showToast(err.message, 'error')
          console.error(err)
-         }
+         } finally {
+     
+          setIsSending(false);
+        }
      }
  
      return (      
@@ -66,9 +77,9 @@ import { ArrowLeft } from 'lucide-react'
                <button
                  type="submit"
                  disabled={!dirty || !isValid || isSubmitting}
-                 className={` ${ !dirty || !isValid ? 'bg-gray-600 ' : 'bg-green-400 cursor-not-allowed'} text-white p-2 rounded transition-colors`}
+                 className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 'bg-green-400 cursor-pointer'} text-white p-2 rounded transition-colors`}
                >
-                 Send Reset Link
+                 {isSending ? 'Sending...' : 'Send Reset Link'}
                </button>
              </Form>
            )}

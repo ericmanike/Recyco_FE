@@ -19,7 +19,7 @@ export default function ResetPasswordForm() {
 
 
  const  Router = useRouter()
-
+   const [isSending, setIsSending] = useState(false);
   const { showToast } = useToast()
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -34,25 +34,28 @@ export default function ResetPasswordForm() {
   
 
   const resetPassword = async (values:{ newPassword: string }) => {
-  
-     
+     setIsSending(true);
     try {
-      const res = await fetch('http://localhost:8000/auth/reset-password', {
+      const res = await fetch('https://recyco-backend.onrender.com/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, token, new_password: values.newPassword }),
+        body: JSON.stringify({token,email, new_password:values.newPassword }),
       })
       if (!res.ok) {
-         showToast('Password reset failed', 'error')
+        console.log(' this is the token'+ token)
+        console.log(' this is the email'+ email)
+        
          throw new Error('Password reset failed')
       }
       
       const data = await res.json()
       console.log('Password reset successful:', data)
-      alert('Password reset successful!')
-    } catch (err) {
-        showToast('Password reset failed', 'error')
+      showToast('Password reset successful!', 'success')
+    } catch (err: any) {
+        showToast(err.message, 'error')
       console.error(err)
+    }finally {
+      setIsSending(false);
     }
   }
 
@@ -112,7 +115,7 @@ export default function ResetPasswordForm() {
                 disabled={!dirty || !isValid || isSubmitting}
               className={` ${ !dirty || !isValid ? 'bg-gray-600 cursor-not-allowed ' : 'bg-green-400 cursor-pointer'} text-white p-2 rounded transition-colors`}
               >
-                Reset Password
+                {isSending ? 'Reseting...' : 'Reset Password'} 
               </button>
             </Form>
           )}
