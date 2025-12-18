@@ -33,17 +33,24 @@ export default function ResetPasswordForm() {
 
   
 
-  const resetPassword = async (values:{ newPassword: string }) => {
+  const resetPassword = async (newPassword: string) => {
      setIsSending(true);
+     if (!token || !email) {
+      showToast('Invalid or missing token/email', 'error')
+      setIsSending(false);
+      return;
+    }
     try {
       const res = await fetch('https://recyco-backend.onrender.com/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({token,email, new_password:values.newPassword }),
+        body: JSON.stringify({token:token,email:email,new_password:newPassword } ),
       })
       if (!res.ok) {
         console.log(' this is the token'+ token)
         console.log(' this is the email'+ email)
+        console.log(' this is the new password'+ newPassword)
+        console.log('response', res)
         
          throw new Error('Password reset failed')
       }
@@ -51,6 +58,7 @@ export default function ResetPasswordForm() {
       const data = await res.json()
       console.log('Password reset successful:', data)
       showToast('Password reset successful!', 'success')
+      Router.replace('/Login')
     } catch (err: any) {
         showToast(err.message, 'error')
       console.error(err)
@@ -68,10 +76,10 @@ export default function ResetPasswordForm() {
          <span>Back</span>
        </button>
       { (
-        <Formik
+        <Formik 
           initialValues={{ newPassword: '', confirmPassword: '' }}
           validationSchema={newPasswordValidationSchema}
-          onSubmit={resetPassword}
+          onSubmit={(values) => resetPassword(values.newPassword)}
         >
           {({ isSubmitting, isValid, dirty }) => (
             <Form className="bg-white p-6 rounded shadow-md w-full  md:w-[80%]  h-[fit]    flex flex-col gap-4">
