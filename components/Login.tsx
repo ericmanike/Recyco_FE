@@ -115,7 +115,7 @@ const Router = useRouter()
         throw new Error('Login failed')
       }
       const data = await res.json()
-      setUser(data)
+  
       showToast('Welcome back', 'success')
       console.log('Login successful:', data)
     }catch(error){
