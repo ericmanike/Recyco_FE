@@ -25,7 +25,7 @@ useEffect(() => {
 
 const logout = async () => {
   try {
-    const res = await fetch("http://localhost:8000/auth/logout", {
+    const res = await fetch("https://recyco-backend.onrender.com/auth/logout", {
       method: "POST",
       credentials: "include",
     });
