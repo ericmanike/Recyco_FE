@@ -6,8 +6,7 @@ import * as Yup from 'yup'
 import { Eye, EyeOff } from 'lucide-react'
 import { useToast } from './toastProvider'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
-import { AuthContext } from './Auth_Context'
+
 import { motion} from 'framer-motion'
 
 const loginValidationSchema = Yup.object().shape({
@@ -27,7 +26,6 @@ const signupValidationSchema = Yup.object().shape({
 
 export default function AuthForm() {
   const { showToast } = useToast()
-  const { user, setUser } = useContext(AuthContext)!
   const [loggingIn, setLoggingIn] = useState(false)
 
 
@@ -115,7 +113,7 @@ const Router = useRouter()
         throw new Error('Login failed')
       }
       const data = await res.json()
-  
+     
       showToast('Welcome back', 'success')
       console.log('Login successful:', data)
     }catch(error){

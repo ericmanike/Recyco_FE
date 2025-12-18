@@ -8,12 +8,10 @@ import MoreDropdown from './Dropdown';
 import Sidebar from './Sidebar';
 import ActiveLink from './ActiveLink';
 import DropdownProfile from './Profiledropdown';
-import { AuthContext } from './Auth_Context';
-import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import {motion, scale} from 'framer-motion';
 import Marquee from './marquee';
-
+import { useAuth } from './Auth_Context';
 
 const Navbar = () => {
 const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,7 +19,7 @@ const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
 
 
-const  {user,setUser,loading} = useContext(AuthContext)!;
+const  {user,loading} = useAuth();
 const router = useRouter();
 
 

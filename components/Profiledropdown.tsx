@@ -53,7 +53,7 @@ const logout = async () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer w-full hover:bg-green-500" onClick={() => router.push('/profile') }> Profile</DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer w-full hover:bg-green-500">Subscription</DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer hover:bg-red-500" onClick={logout}>Logout  <LogOut className="ml-2" /> </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer hover:bg-red-500" onClick={() => logout()}>Logout  <LogOut className="ml-2" /> </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
