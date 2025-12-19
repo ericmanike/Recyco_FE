@@ -114,7 +114,6 @@ const router = useRouter()
       }
       const data = await res.json()
        setUser(data);
-       fetch('api/setToken')
       showToast('Welcome back', 'success')
       console.log('Login successful:', data)
     }catch(error){
