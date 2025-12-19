@@ -3,7 +3,7 @@ import { Check, Sparkles, BadgeCheck } from 'lucide-react';
 
 export default function RecycloSubscriptions() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-emerald-50 to-teal-50 p-8 flex items-center justify-center">
+    <div className="min-h-screen bg-linear-to-br from-emerald-50 to-blue-50 p-8 flex items-center justify-center mt-27">
       <div className="max-w-md w-full">
         
         {/* Premium Plan */}
@@ -69,7 +69,7 @@ export default function RecycloSubscriptions() {
             </li>
           </ul>
           
-          <button className="w-full bg-white hover:bg-gray-50 text-emerald-700 font-semibold py-3 px-6 rounded-lg transition-colors">
+          <button className="cursor-pointer w-full bg-white hover:bg-gray-50 text-emerald-700 font-semibold py-3 px-6 rounded-lg transition-colors">
             Choose Premium
           </button>
         </div>
