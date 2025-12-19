@@ -17,7 +17,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const hydrateAuth = async () => {
       try {
-        const res = await fetch("https://recyco-backend.onrender.com/auth/me", {
+        const res = await fetch("https://api.recyco.me/auth/me", {
           method: "GET",
           credentials: "include",
         });

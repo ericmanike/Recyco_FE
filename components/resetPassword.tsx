@@ -41,7 +41,7 @@ export default function ResetPasswordForm() {
       return;
     }
     try {
-      const res = await fetch('https://recyco-backend.onrender.com/auth/reset-password', {
+      const res = await fetch('https://api.recyco.me/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({token:token,email:email,new_password:newPassword } ),

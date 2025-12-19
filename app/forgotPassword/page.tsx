@@ -30,7 +30,7 @@ import { useState } from 'react'
         
         setIsSending(true);
          try {   
-         const res = await fetch('https://recyco-backend.onrender.com/auth/request-reset', {
+         const res = await fetch('https://api.recyco.me/auth/request-reset', {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify({ email: values.email }),

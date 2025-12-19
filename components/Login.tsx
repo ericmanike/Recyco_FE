@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { Eye, EyeOff } from 'lucide-react'
 import { useToast } from './toastProvider'
 import { useRouter } from 'next/navigation'
-
+import { useAuth } from './Auth_Context'    
 import { motion} from 'framer-motion'
 
 const loginValidationSchema = Yup.object().shape({
@@ -32,7 +32,7 @@ export default function AuthForm() {
   //ui
   const [isLoginMode, setIsLoginMode] = useState(false)
 
-  
+  const {user,setUser} = useAuth();
 
   // Router for navigation
 const Router = useRouter()
@@ -59,7 +59,7 @@ const Router = useRouter()
       setIsLoginMode(true)
     if(!signUpData) return;
     try {   
-      const res  = await fetch('https://recyco-backend.onrender.com/auth/signUp', {
+      const res  = await fetch('https://api.recyco.me/auth/signUp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const Router = useRouter()
   const login = async(loginData: { email: string; password: string }) => {
     setIsLoginMode(true)
     try{
-      const res  = await fetch('https://recyco-backend.onrender.com/auth/login', {
+      const res  = await fetch('https://api.recyco.me/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -113,7 +113,8 @@ const Router = useRouter()
         throw new Error('Login failed')
       }
       const data = await res.json()
-     
+       setUser(data);
+       fetch('api/setToken')
       showToast('Welcome back', 'success')
       console.log('Login successful:', data)
     }catch(error){

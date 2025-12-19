@@ -25,7 +25,7 @@ useEffect(() => {
 
 const logout = async () => {
   try {
-    const res = await fetch("https://recyco-backend.onrender.com/auth/logout", {
+    const res = await fetch("https://api.recyco.me/auth/logout", {
       method: "POST",
       credentials: "include",
     });
