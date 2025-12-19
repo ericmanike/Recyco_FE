@@ -35,7 +35,7 @@ export default function AuthForm() {
   const {user,setUser} = useAuth();
 
   // Router for navigation
-const Router = useRouter()
+const router = useRouter()
 
 
   
@@ -122,7 +122,8 @@ const Router = useRouter()
       console.log('Login error:', error)
     }finally{
       setIsLoginMode(false)
-      Router.push('/buy')
+      router.refresh()
+      router.push('/buy')
     }
   }
    
@@ -137,7 +138,7 @@ const Router = useRouter()
        whileHover={{scale:0.95}}
       whileTap={{scale:1}}
       
-      onClick={()=> Router.replace('/')} className='text-[10px]  md:text-[16px] absolute top-2 md:top-6 px-4 left-1 bg-gray-300 p-2 rounded cursor-pointer' >
+      onClick={()=> router.replace('/')} className='text-[10px]  md:text-[16px] absolute top-2 md:top-6 px-4 left-1 bg-gray-300 p-2 rounded cursor-pointer' >
       Back
       </motion.button>
 
@@ -171,7 +172,7 @@ const Router = useRouter()
                 <div className="w-full flex justify-between">
                   <label className="text-gray-700">Password <span className="text-red-500">*</span></label>
                   <button className='cursor-pointer text-[16px]
-                   text-green-500 hover:text-green-600' onClick={()=>Router.push('/forgotPassword')}>Forgot password</button>
+                   text-green-500 hover:text-green-600' onClick={()=>router.push('/forgotPassword')}>Forgot password</button>
                 </div>
                 <div className="relative">
                   <Field
