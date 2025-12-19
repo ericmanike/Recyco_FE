@@ -25,7 +25,6 @@ export default function DropdownMenuRadioGroupDemo() {
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
          <Link href="/news"></Link> <DropdownMenuRadioItem value="top" className="cursor-pointer w-full hover:bg-green-500"> News</DropdownMenuRadioItem>
         <Link href="/support">  <DropdownMenuRadioItem value="right" className="cursor-pointer w-full hover:bg-green-500">Support our work</DropdownMenuRadioItem></Link>
-         <Link href="/orderPickup">  <DropdownMenuRadioItem value="left" className="cursor-pointer w-full hover:bg-green-500">Order Pickup</DropdownMenuRadioItem></Link>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
