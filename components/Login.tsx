@@ -115,14 +115,15 @@ const router = useRouter()
       const data = await res.json()
        setUser(data);
       showToast('Welcome back', 'success')
+      router.push('/buy')
       console.log('Login successful:', data)
     }catch(error){
     
       console.log('Login error:', error)
     }finally{
       setIsLoginMode(false)
-      router.refresh()
-      router.push('/buy')
+  
+ 
     }
   }
    
@@ -199,7 +200,7 @@ const router = useRouter()
               whileTap={{scale:1}}
              type="submit" disabled={!isValid || isSubmitting || !dirty} className={` ${ !dirty || !isValid ? 'bg-gray-600  cursor-not-allowed ' : 
                 'bg-green-400 cursor-pointer '}  text-white p-2 rounded transition-colors`}>
-              {isLoginMode ? 'Logging in...': 'Login'}
+              {isLoginMode ? 'Processing...': 'Login'}
               </motion.button>
 
               <div className="flex justify-between items-center">
