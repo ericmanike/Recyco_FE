@@ -5,6 +5,7 @@ import { ArrowUpToLine } from 'lucide-react'
 import { use, useState, useRef, useEffect } from 'react'
 import AnimatedBackground from '@/components/animatedBg'
 
+
 interface Message {
   id: string
   text: string
@@ -86,7 +87,7 @@ export default function Page({ params }: { params: Promise<{ chat_id: string }> 
           </div>
 
           {/* Messages Container */}
-          <div className='flex-1 overflow-y-auto p-4 space-y-4'>
+          <div className='flex-1 overflow-y-scroll p-4 space-y-4'>
             {messages.map((msg) => (
               <div
                 key={msg.id}

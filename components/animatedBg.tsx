@@ -16,7 +16,7 @@ export default function AnimatedBackground() {
       Array.from({ length: 6 }, (_, i) => ({
         size: 40 + i * 20,
         left: Math.random() * 100,
-        duration: 15 + Math.random() * 10,
+        duration: 10 + Math.random() * 10,
       }))
     );
   }, []);
@@ -25,14 +25,14 @@ export default function AnimatedBackground() {
     <>
       {/* Moving Gradient Background */}
       <motion.div
-        className="fixed top-0 left-0 w-full h-full -z-10"
+        className="h-screen overflow-y-scroll fixed top-0 left-0 w-full  -z-10"
         style={{
           background: "linear-gradient(270deg, #16a34a, #facc15, #f97316, #16a34a)",
           backgroundSize: "600% 600%",
         }}
         animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
         transition={{
-          duration: 20,
+          duration: 10,
           repeat: Infinity,
           ease: "linear",
         }}
