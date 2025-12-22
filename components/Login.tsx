@@ -8,6 +8,7 @@ import { useToast } from './toastProvider'
 import { useRouter } from 'next/navigation'
 import { useAuth } from './Auth_Context'    
 import { motion} from 'framer-motion'
+import Spinner from './loadingComponent'
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -132,6 +133,7 @@ const router = useRouter()
   return (
     <div className="min-h-screen w-full flex justify-center
      items-center bg-linear-to-br from-green-400 to-blue-500 p-10">
+      {isLoginMode && <Spinner />}
       <motion.button 
        whileHover={{scale:0.95}}
       whileTap={{scale:1}}
