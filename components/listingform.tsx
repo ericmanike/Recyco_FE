@@ -118,19 +118,12 @@ export default function WasteListingForm() {
       <div className=" w-[90%] mt-5 mx-auto">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="mb-8">
-            <h1 className=" text-[15px] md:text-3xl font-bold text-gray-900 mb-2">Waste Listing Form</h1>
+            <h1 className=" text-[12px] md:text-3xl font-bold text-gray-900 mb-2">Waste Listing Form</h1>
             <p className="text-gray-600">Submit details about waste materials available for recycling or disposal</p>
           </div>
 
-          {submitted && (
-            <div className="mb-6 bg-white border border-green-200 rounded-lg p-4 flex items-start gap-3">
-              <CheckCircle2 className="text-green-600 shrink-0 mt-0.5" size={20} />
-              <div>
-                <h3 className="font-semibold text-green-900">Successfully Submitted!</h3>
-                <p className="text-sm text-green-700">Your waste listing has been recorded.</p>
-              </div>
-            </div>
-          )}
+        
+        
 
           <FormikProvider value={formik}>
             <div className="space-y-6">
@@ -278,11 +271,11 @@ export default function WasteListingForm() {
 
                 {/* Image Previews */}
                 {imagePreviews.length > 0 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                  <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     
                     {formik.values.images.map((file, index) => (
-                      <div key={index} className="relative group">
-                        <img src={URL.createObjectURL(file)} alt={`Preview ${index + 1}`} className="w-full h-auto rounded-lg" />
+                      <div key={index} className="relative group h-[70px] md:h-[100px]">
+                        <img src={URL.createObjectURL(file)} alt={`Preview ${index + 1}`} className="w-full h-full object-cover rounded-lg" />
                       </div>
                     ))}
 
@@ -364,7 +357,7 @@ export default function WasteListingForm() {
                 type="button"
                 onClick={() => formik.handleSubmit()}
                 disabled={formik.isSubmitting}
-                className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors focus:ring-4 focus:ring-green-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className=" cursor-pointer text-[10px] md:text-[16px] flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors focus:ring-4 focus:ring-green-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {formik.isSubmitting ? 'Submitting...' : 'Submit Listing'}
               </button>
@@ -374,7 +367,7 @@ export default function WasteListingForm() {
                   setImagePreviews([]);
                   formik.resetForm();
                 }}
-                className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                className=" cursor-pointer text-[10px] md:text-[16px] px-6 py-1  md:py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 Reset
               </button>
