@@ -115,7 +115,6 @@ const router = useRouter()
       const data = await res.json()
        setUser(data);
       showToast('Welcome back', 'success')
-      window.location.reload();
       router.push('/buy')
       console.log('Login successful:', data)
     }catch(error){
@@ -123,8 +122,6 @@ const router = useRouter()
       console.log('Login error:', error)
     }finally{
       setIsLoginMode(false)
-  
- 
     }
   }
    
