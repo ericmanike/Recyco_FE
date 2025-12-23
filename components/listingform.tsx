@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useFormik, Field, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import { AlertCircle, CheckCircle2, Upload, X, Image as ImageIcon } from 'lucide-react';
+import Spinner from './loadingComponent';
 
 interface WasteFormValues {
   wasteType: string;
@@ -48,6 +49,7 @@ const validationSchema = Yup.object({
 export default function WasteListingForm() {
   const [submitted, setSubmitted] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [creating,setCreating] =useState(false)
 
   const wasteTypes = [
     'Organic Waste',
@@ -113,9 +115,42 @@ export default function WasteListingForm() {
     },
   });
 
+
+  const handleCreate =async()=>{
+
+    try{
+     const res = await fetch('')
+
+
+
+
+
+    } catch(err){
+
+
+    }
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
   return (
         
       <div className=" w-[90%] mt-5 mx-auto">
+        {creating && <Spinner />}
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="mb-8">
             <h1 className=" text-[12px] md:text-3xl font-bold text-gray-900 mb-2">Waste Listing Form</h1>

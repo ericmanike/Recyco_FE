@@ -4,6 +4,7 @@ import { GoogleMap, useJsApiLoader,MarkerF, OverlayView} from "@react-google-map
 import {getDistance} from "@/lib/distanceFunc";
 import { Phone,ChevronDown,ChevronUp, Star } from "lucide-react";
 import { greenMapStyle } from "@/lib/mapstyles";
+import Spinner from "./loadingComponent";
 
 
 
@@ -48,7 +49,7 @@ setLocation({
     alert("Geolocation is not supported by this browser! cannot get location.");
   }
 
-}, [location]);
+}, []);
 
 useEffect(() => {
 
@@ -89,8 +90,16 @@ useEffect(() => {
 
     return(
  
-        <div className="flex justify-center  items-center  h-screen">Loading...</div>
+       <Spinner />
     
+    )
+  }
+
+  if  (!data.length) {
+      return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <p className="text-gray-700 text-lg font-bold">No nearby recycling centers found. Something went wrong.</p>
+      </div>
     )
   }
  
@@ -99,8 +108,9 @@ useEffect(() => {
 return(
 
 <>
-
-
+   
+  
+  
   <div className="w-1fr h-screen bg-[gray] text-white relative">
     {/* <DistanceFilter/> */}
 

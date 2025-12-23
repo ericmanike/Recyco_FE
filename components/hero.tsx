@@ -12,6 +12,7 @@ gsap.registerPlugin(SplitText);
 import SponsorLogoLoop from './logoLoop';
 import {motion} from 'framer-motion'
 import { Verified } from 'lucide-react';
+import TestimonialCarousel from './testimonials';
 
 
 
@@ -279,13 +280,11 @@ export default function WasteManagementHero() {
         </div>
 
         <hr className='my-10 h-8 text-gray-500'/>
+        {/* Verified Section */}
       <div className="w-full flex justify-around flex-wrap my-30 bg-green-40 p-3  md:p-8 rounded-2xl shadow-lg">
 
 
-      <motion.div 
-    
-      
-      className=' space-y-6 p-3'>
+  <motion.div className=' space-y-6 p-3'>
   <motion.div className='space-y-3 '>
     <h1 className='text-3xl md:text-6xl font-[cursive]'>Chat</h1>
     <p className='text-1xl md:text-2xl text-gray-700 max-w-3xl'>
@@ -305,6 +304,32 @@ export default function WasteManagementHero() {
 <Carousel />
 
         </div>
+
+
+        {/* testimonial Section */}
+         
+
+
+
+     
+    
+
+    <div className="">
+   <TestimonialCarousel/>
+  
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
      <div className="w-full flex flex-col my-10 gap-2 ">
         <p className='text-center font-bold text-2xl md:text-4xl'>Our Partners And sponsors </p> 
         <SponsorLogoLoop />
@@ -316,13 +341,13 @@ export default function WasteManagementHero() {
 
   <div className='w-full   py-10 '>
   <h3 className='text-center  font-bold'> Subscribe to our Daily updates</h3>
-  <div  className='flex flex-wrap gap-2 mt-4 w-[60%] mx-auto '>
+  <div  className='flex flex-wrap gap-2 mt-4 w-[80%] md:w-[60%] mx-auto '>
   <input placeholder="Enter your email"  className='p-2 w-full rounded  md:w-[80%] outline-2 outline-green-500'/>
   <motion.button
   whileFocus={{}}
   whileTap={{scale:1}}
   whileHover={{scale:0.95}}
-   className=' bg-green-500 text-white cursor-pointer p-2 rounded md:w-[15%] w-full'>Subscribe</motion.button>
+   className=' bg-green-500 text-white cursor-pointer p-2 rounded w-[fit] md:w-[15%] '>Subscribe</motion.button>
   </div>
 </div>
 
