@@ -119,14 +119,24 @@ export default function WasteListingForm() {
   const handleCreate =async()=>{
 
     try{
-     const res = await fetch('')
+     const res = await fetch('https://api.recyco.me/upload/upload',
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({data:'sample data'}  )
+      }
 
+     )
+      const data = await res.json();
+      console.log('Creation response:', data);
 
 
 
 
     } catch(err){
-
+      console.log('Error during creation:', err);
 
     }
 
