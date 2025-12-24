@@ -116,10 +116,9 @@ const router = useRouter()
       const data = await res.json()
        setUser(data);
      
-       window.location.reload();      
-      setTimeout(() =>{ router.push('/buy')
-         showToast('Welcome back', 'success')
-      }, 5000);
+      window.location.href = '/buy';
+      showToast('Welcome back', 'success')
+
       console.log('Login successful:', data)
     }catch(error){
     
