@@ -6,7 +6,10 @@ export const FirstVisitPopup: React.FC = () => {
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisitedBefore');
     if (!hasVisited) {
-      setIsVisible(true);
+        setTimeout(() => {
+            setIsVisible(true);
+        }, 700); 
+         setIsVisible(true);
     }
   }, []);
 
