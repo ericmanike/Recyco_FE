@@ -34,7 +34,7 @@ export const FirstVisitPopup: React.FC = () => {
                 Important Notice
               </h2>
               <p className="text-gray-700 text-sm leading-relaxed">
-                Recyco website is currently in beta. Some features may not work as expected, 
+                Recyco Platform is currently in beta. Some features may not work as expected, 
                 and we are actively working to improve your experience.
               </p>
             </div>
@@ -47,7 +47,7 @@ export const FirstVisitPopup: React.FC = () => {
           </div>
           <button
             onClick={handleOkClick}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+            className="cursor-pointer w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
           >
             I Understand, Continue
           </button>
