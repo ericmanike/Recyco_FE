@@ -8,8 +8,8 @@ export const FirstVisitPopup: React.FC = () => {
     if (!hasVisited) {
         setTimeout(() => {
             setIsVisible(true);
-        }, 700); 
-         setIsVisible(true);
+        }, 6000); 
+     
     }
   }, []);
 
